@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: npm ci
+      - run: python -m pip install Pillow
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: python -m unittest tools.pet_factory.test_build_sprite_package
+      - run: npm run validate:asset -- assets/pets/helcai
+      - run: npm run build

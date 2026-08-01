@@ -1,0 +1,40 @@
+name: Bug report
+description: 报告可复现的运行、交互或构建问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请勿上传 API 密钥、原始私人照片或完整用户数据目录。
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      placeholder: 例如 0.3.0
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: 系统环境
+      placeholder: Windows 11 24H2，双显示器，150% DPI
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请按顺序描述最小复现步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 脱敏日志或截图
+      description: 请先移除密钥、照片路径和个人信息。

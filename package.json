@@ -1,0 +1,82 @@
+{
+  "name": "helcai-deskpet",
+  "version": "0.3.0",
+  "description": "A natural desktop pet runtime and provider-neutral AI pet studio",
+  "author": "No-67Helki",
+  "homepage": "https://github.com/No-67Helki/helcai-deskpet#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/No-67Helki/helcai-deskpet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/No-67Helki/helcai-deskpet/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "desktop-pet",
+    "electron",
+    "sprite",
+    "pet-avatar"
+  ],
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build:icon": "python scripts/build-icon.py",
+    "copy-renderer": "node scripts/copy-renderer.mjs",
+    "build": "tsc --noEmit && esbuild src/main/main.ts --bundle --platform=node --format=cjs --external:electron --outfile=dist/main/main.js && esbuild src/preload/index.ts --bundle --platform=node --format=cjs --external:electron --outfile=dist/preload/index.js && esbuild src/renderer/app.ts --bundle --platform=browser --format=iife --outfile=dist/renderer/app.js && esbuild src/factory/app.tsx --bundle --platform=browser --format=iife --jsx=automatic --outfile=dist/factory/app.js && npm run copy-renderer",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.ts\" \"src/**/*.tsx\" \"tests/**/*.ts\"",
+    "test": "vitest run",
+    "test:python": "python -m unittest tools.pet_factory.test_build_sprite_package",
+    "test:all": "npm test && npm run test:python",
+    "validate:asset": "node scripts/validate-pet-asset.mjs",
+    "validate:photos": "python tools/pet_factory/validate_inputs.py inputs/pet-photos",
+    "build:win": "npm run build && electron-builder --win portable",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:linux": "npm run build && electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.helcai.deskcat",
+    "productName": "赫尔财 DeskCat",
+    "directories": {
+      "output": "release-final"
+    },
+    "files": [
+      "dist/**/*",
+      "assets/icon.png",
+      "assets/icon.ico",
+      "assets/pets/**/*",
+      "!assets/pets/**/frames/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^3.0.0"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}
