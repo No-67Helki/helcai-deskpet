@@ -52,6 +52,10 @@
 - Python Pillow
 
 ```bash
+python -m pip install -r requirements-dev.txt
+```
+
+```bash
 npm install
 npm run typecheck
 npm run lint

@@ -24,6 +24,10 @@ HelCai DeskPet is a lightweight Windows desktop pet with natural six-state anima
 Requirements: Node.js 20+, npm 10+, and Python 3.10 with Pillow for image tooling.
 
 ```bash
+python -m pip install -r requirements-dev.txt
+```
+
+```bash
 npm install
 npm run typecheck
 npm run lint
